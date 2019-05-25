@@ -26,6 +26,7 @@ class DBManager:
         with open(word_path, 'r') as f:
             self.words = json.load(f)
 
+        # creates a task scheduler using the same db as taskstore
         self.scheduler = BackgroundScheduler(timezone='utc')
         self.scheduler.add_jobstore('sqlalchemy', url=f'sqlite:///{db_path}')
         self.scheduler.start()
@@ -72,6 +73,6 @@ class DBManager:
         c.connection.commit()
 
     def addTask(self, note_id, expiry_date):
-        print(type(expiry_date))
+        # adds a task in APScheduler to delete note after its expiry time/date
         self.scheduler.add_job(removeNote, trigger='date', run_date=expiry_date,
                                id=note_id, timezone='UTC', args=(note_id, self.db_path))
