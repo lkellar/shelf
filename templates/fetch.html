@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Retrieve Note</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<main>
+    <h1>Note {{ note.id }}</h1>
+    <p id="note_data">{{ note.data }}</p>
+    <button id="copy" onclick="copyText()">Copy to Clipboard</button>
+</main>
+<script>
+    async function copyText() {
+        const txt = document.getElementById('note_data').innerText;
+        await navigator.clipboard.writeText(txt);
+    }
+
+    if (location.protocol !== 'https:' && location.hostname !== "localhost"
+        && location.hostname !== "127.0.0.1" && location.hostname !== "0.0.0.0"
+        && !location.hostname.startsWith('192.168')) {
+        document.getElementById('copy').style.display = 'none'
+    }
+</script>
+</body>
+</html>

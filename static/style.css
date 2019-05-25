@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+    background-color: #c4c4c4;
+    text-align: center;
+}
+
+main {
+    margin: 0 auto;
+    width: 60%;
+    background: #FFFFFF;
+    padding: 1em;
+    border-radius: 50px;
+}
+
+textarea {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+    border-radius: 10px;
+    border-color: #c4c4c4;
+}
+
+button {
+    margin: 1% auto;
+    display: block;
+    padding: 3% 8%;
+    font-size: x-large;
+    border-radius: 50px;
+    background-color: rgb(237, 237, 237);
+}

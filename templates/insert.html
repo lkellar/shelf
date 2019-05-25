@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Note</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<main>
+    <form action="" method="post">
+        <h1>Create New Note</h1>
+        <textarea id="note" name="note" rows="10"></textarea>
+        <div>
+            <label>Private:
+                <input type="checkbox" name="private" checked></label>
+            <button type="submit">Submit!</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

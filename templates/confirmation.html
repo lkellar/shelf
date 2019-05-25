@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Added!</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<main>
+    <h1>Note Successfully Added!</h1>
+    <p>You can access your note with code: {{ secret_code }}<br>
+        or by visiting <a href="{{ url_for('fetch', note_id=secret_code) }}">{{ url_for('fetch', note_id=secret_code, _external=True, _scheme="https") }}</a>
+    </p>
+</main>
+</body>
+</html>
