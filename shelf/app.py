@@ -1,8 +1,9 @@
 from flask import Flask, g, request, jsonify, render_template
 from os import path
+from pathlib import Path
 import sqlite3
 
-from shelf.db import DBManager
+from shelf import db
 
 app = Flask(__name__, static_url_path='/static', static_folder='../static/',
             template_folder='../templates')
@@ -11,7 +12,7 @@ app.jinja_options = {'lstrip_blocks': True, 'trim_blocks': True}
 currentDir = path.dirname(path.realpath(__file__))
 
 # Gets the path to a database file right outside the src directory
-DATABASE_PATH = path.join(currentDir, '../', 'shelf.sqlite3')
+DATABASE_PATH = str(Path(path.join(currentDir, '../', 'shelf.sqlite3')).resolve())
 # The path to the simple word list
 # TODO ATTRIBUTE WIKTIONARY AS SOURCE
 WORD_PATH = path.join(currentDir, '../', 'words.json')
@@ -22,7 +23,7 @@ DB_MANAGER = None
 def startup():
     global DB_MANAGER
     # creates a DBManager instance
-    DB_MANAGER = DBManager(DATABASE_PATH, WORD_PATH)
+    DB_MANAGER = db.DBManager(DATABASE_PATH, WORD_PATH)
 
 
 @app.route('/insert', methods=['GET','POST'])
@@ -47,7 +48,7 @@ def insert():
     ttl_days = int(form['ttl_days']) if 'ttlDays' in form else 1
 
     # Max Page Visits before expiration
-    max_visits = int(form['max_visits']) if 'max_visits' in form else 1
+    max_visits = int(form['max_visits']) if 'max_visits' in form else 3
 
     DB_MANAGER.insert(id, form['note'], private, ttl_days, max_visits, c)
 
@@ -66,6 +67,9 @@ def fetch(note_id):
 
     # if the row exists, return the stored data
     if row:
+        DB_MANAGER.updateVisits((row['visits'] + 1), note_id, c)
+        if row['visits'] + 1 >= row['max_visits']:
+            db.removeNote(note_id, DATABASE_PATH)
         return render_template('fetch.html', note=row)
     else:
         # if not, return a cool data not found message

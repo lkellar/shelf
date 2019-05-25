@@ -276,4 +276,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-.sqlite3
+*.sqlite3
