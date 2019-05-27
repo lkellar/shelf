@@ -8,7 +8,7 @@
 <body>
 <main>
     <h1>Note Successfully Added!</h1>
-    <p id="secret_code" data-code="{{ secret_code }}">You can access your note with code: {{ secret_code }}<br>
+    <p id="secret_code" data-code="{{ secret_code }}">You can access your note with code: <b>{{ secret_code }}</b><br>
         or by visiting <a href="{{ url_for('fetch', note_id=secret_code) }}">{{ url_for('fetch', note_id=secret_code, _external=True, _scheme="https") }}</a>
     </p>
     <button class="copy" onclick="copyText(true)">Copy URL to Clipboard</button>
