@@ -26,7 +26,7 @@ def startup():
     DB_MANAGER = db.DBManager(DATABASE_PATH, WORD_PATH)
 
 
-@app.route('/insert', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def insert():
     # if a GET request, just send back the insert page
     if request.method == 'GET':
@@ -48,7 +48,7 @@ def insert():
     ttl_days = int(form['ttl_days']) if 'ttlDays' in form else 1
 
     # Max Page Visits before expiration
-    max_visits = int(form['max_visits']) if 'max_visits' in form else 3
+    max_visits = int(form['max_visits']) if 'max_visits' in form else 2
 
     DB_MANAGER.insert(id, form['note'], private, ttl_days, max_visits, c)
 

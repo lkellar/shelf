@@ -8,9 +8,31 @@
 <body>
 <main>
     <h1>Note Successfully Added!</h1>
-    <p>You can access your note with code: {{ secret_code }}<br>
+    <p id="secret_code" data-code="{{ secret_code }}">You can access your note with code: {{ secret_code }}<br>
         or by visiting <a href="{{ url_for('fetch', note_id=secret_code) }}">{{ url_for('fetch', note_id=secret_code, _external=True, _scheme="https") }}</a>
     </p>
+    <button class="copy" onclick="copyText(true)">Copy URL to Clipboard</button>
+    <button class="copy" onclick="copyText(false)">Copy Code to Clipboard</button>
 </main>
+<script>
+    async function copyText(url) {
+        // if url is true, copy the url, if not, copy the code
+        let txt;
+        if (url) {
+            txt = document.getElementById('secret_code').getElementsByTagName('a')[0].innerText;
+        } else {
+            txt = document.getElementById('secret_code').dataset.code;
+        }
+        await navigator.clipboard.writeText(txt);
+    }
+
+    if (location.protocol !== 'https:' && location.hostname !== "localhost"
+        && location.hostname !== "127.0.0.1" && location.hostname !== "0.0.0.0"
+        && !location.hostname.startsWith('192.168')) {
+        for (const i of document.getElementsByClassName('copy')) {
+            i.style.display = 'none'
+        }
+    }
+</script>
 </body>
 </html>

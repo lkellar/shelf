@@ -4,20 +4,31 @@ body {
     text-align: center;
 }
 
-main {
-    margin: 0 auto;
+main, .surround{
+    margin: 0 auto 2em;
     width: 60%;
     background: #FFFFFF;
     padding: 1em;
     border-radius: 50px;
 }
 
+.note-container > label {
+    display: block;
+    text-align: left;
+}
+
+.note-container {
+    width: 60%;
+    margin: 0 auto;
+}
+
 textarea {
     display: block;
     margin: 0 auto;
-    width: 60%;
+    width: 100%;
     border-radius: 10px;
     border-color: #c4c4c4;
+    margin-bottom: 1em;
 }
 
 button {
@@ -27,4 +38,32 @@ button {
     font-size: x-large;
     border-radius: 50px;
     background-color: rgb(237, 237, 237);
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#controls > label {
+    margin: 0 1%;
+}
+
+input[type="number"] {
+    width: 5em;
+}
+
+@media only screen and (max-width: 800px) {
+    main, .surround {
+        width: 80%;
+    }
+
+    #controls {
+        flex-flow: column;
+    }
+
+    input[type="number"] {
+        width: 2em;
+    }
 }
