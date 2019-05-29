@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="surround">
-    <form action="" method="post">
+    <form action="{{ url_for('clientInsert') }}" method="post">
         <h1>Create New Note</h1>
         <p>Share text between computers without creating digital clutter. </p>
         <div class="note-container">
@@ -32,7 +32,7 @@
         <h1>Fetch Existing Note</h1>
         <p>Retrieve a previously entered note with the associated code</p>
         <label>Enter Note Code:
-            <input name="code"></label>
+            <input name="note_id"></label>
         <button type="submit">Submit</button>
     </form>
 </div>
@@ -40,19 +40,19 @@
     function createFetchUrl(formName) {
         // Fetching the value of the code input
         const form = document.forms[formName];
-        const code_input = form.querySelector('input[name="code"]');
-        const code = code_input.value.replace(' ', '-');
+        const note_id_input = form.querySelector('input[name="note_id"]');
+        const note_id = note_id_input.value.replace(' ', '-');
 
         // Changing the form action to go to the note corresponding to the code
         let url = form.action.split('/').slice(0, -1);
-        url.push(code);
+        url.push(note_id);
         url = url.join('/');
         form.action = url;
 
         // Turning off the input during submission so there's no unnecessary GET param
-        code_input.disabled = true;
+        note_id_input.disabled = true;
         form.submit();
-        code_input.disabled = false;
+        note_id_input.disabled = false;
 
         // Return false because we've already submitted a form
         return false;

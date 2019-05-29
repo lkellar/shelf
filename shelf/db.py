@@ -5,12 +5,14 @@ import random
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
+
 # This function has to be outside of the DB manager, or the scheduler jobstore
 # won't function correctly
 def removeNote(note_id, db_path):
     c = sqlite3.connect(db_path).cursor()
     c.execute('DELETE FROM shelf WHERE id = ?', (note_id,))
     c.connection.commit()
+
 
 class DBManager:
 
@@ -32,7 +34,6 @@ class DBManager:
         self.scheduler.start()
         self.db_path = db_path
 
-
     def insert(self, id: str, data: str, private: bool, ttl_days: int, max_visits: int, c: sqlite3.Cursor):
         # gets the current time (in utc)
         utc_date = datetime.utcnow()
@@ -45,6 +46,12 @@ class DBManager:
         c.connection.commit()
 
         self.addTask(id, expiry_date)
+
+        # Returns the expiry date and id which can be presented to the client
+        # Also format expiry date in iso format for API, and for client side JS
+        # to convert into local time zone
+        return {'id': id, 'expiry_date': expiry_date.isoformat()+'Z',
+                'max_visits': max_visits}
 
     def fetchOne(self, id: str, c: sqlite3.Cursor):
         c.execute('SELECT * FROM shelf WHERE id = ?', (id,))

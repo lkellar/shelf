@@ -8,9 +8,11 @@
 <body>
 <main>
     <h1>Note Successfully Added!</h1>
-    <p id="secret_code" data-code="{{ secret_code }}">You can access your note with code: <b>{{ secret_code }}</b><br>
-        or by visiting <a href="{{ url_for('fetch', note_id=secret_code) }}">{{ url_for('fetch', note_id=secret_code, _external=True, _scheme="https") }}</a>
+    <h2>Code: {{ note_id }}</h2>
+    <p id="note_id" data-code="{{ note_id }}">You can access your note with code: <b>{{ note_id }}</b><br>
+        or by visiting <a href="{{ url_for('fetch', note_id=note_id) }}">{{ url_for('fetch', note_id=note_id, _external=True, _scheme="https") }}</a>
     </p>
+    <p>This note will expire on <b id="expiry" data-expiry="{{ expiry_date }}">{{ expiry_date }}</b></p>
     <button class="copy" onclick="copyText(true)">Copy URL to Clipboard</button>
     <button class="copy" onclick="copyText(false)">Copy Code to Clipboard</button>
 </main>
@@ -19,12 +21,15 @@
         // if url is true, copy the url, if not, copy the code
         let txt;
         if (url) {
-            txt = document.getElementById('secret_code').getElementsByTagName('a')[0].innerText;
+            txt = document.getElementById('note_id').getElementsByTagName('a')[0].innerText;
         } else {
-            txt = document.getElementById('secret_code').dataset.code;
+            txt = document.getElementById('note_id').dataset.code;
         }
         await navigator.clipboard.writeText(txt);
     }
+    const expiry_ele = document.getElementById('expiry');
+    const post_date = new Date(expiry_ele.dataset['expiry']);
+    expiry_ele.innerText = post_date.toString();
 
     if (location.protocol !== 'https:' && location.hostname !== "localhost"
         && location.hostname !== "127.0.0.1" && location.hostname !== "0.0.0.0"
