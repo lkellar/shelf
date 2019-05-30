@@ -57,6 +57,16 @@
         // Return false because we've already submitted a form
         return false;
     }
+
+    const url = new URL(window.location.href);
+    const c = url.searchParams.get('find');
+    if (c === 'failed') {
+        const ele = document.createElement('h2');
+        ele.classList.add('surround');
+        ele.style = 'color: #fc6c6c; font-family: sans-serif; margin-bottom: 1em;';
+        ele.textContent = 'Note not Found!';
+        document.body.insertBefore(ele, document.body.firstChild);
+    }
 </script>
 </body>
 </html>

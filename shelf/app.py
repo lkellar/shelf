@@ -63,8 +63,8 @@ def clientFetch(note_id):
         return render_template('fetch.html', note=note)
     else:
         # if not, return a cool data not found message
-        # TODO make this a webpage, not json
-        return jsonify({'data': 'Entry Not Found'})
+        return redirect(url_for('index', find='failed', _external=True,
+                                _scheme='https'))
 
 
 # Shared Functions for use by multiple endpoints
@@ -99,11 +99,13 @@ def fetch(note_id):
     # Fetches first (and only) article in database with provided id
     row = DB_MANAGER.fetchOne(note_id, c)
 
-    DB_MANAGER.updateVisits((row['visits'] + 1), note_id, c)
-    if row['visits'] + 1 >= row['max_visits']:
-        removeNote(note_id, DATABASE_PATH)
+    if row:
+        DB_MANAGER.updateVisits((row['visits'] + 1), note_id, c)
+        if row['visits'] + 1 >= row['max_visits']:
+            removeNote(note_id, DATABASE_PATH)
+        return row
 
-    return row if row else False
+    return False
 
 
 def get_db():
