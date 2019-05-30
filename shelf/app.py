@@ -55,19 +55,12 @@ def clientInsert():
 
 # TODO add api for fetch
 @app.route('/fetch/<note_id>', methods=['GET'])
-def fetch(note_id):
-    # grabs a cursors for db
-    c = get_db().cursor()
-
-    # Fetches first (and only) article in database with provided id
-    row = DB_MANAGER.fetchOne(note_id, c)
+def clientFetch(note_id):
+    note = fetch(note_id)
 
     # if the row exists, return the stored data
-    if row:
-        DB_MANAGER.updateVisits((row['visits'] + 1), note_id, c)
-        if row['visits'] + 1 >= row['max_visits']:
-            removeNote(note_id, DATABASE_PATH)
-        return render_template('fetch.html', note=row)
+    if note:
+        return render_template('fetch.html', note=note)
     else:
         # if not, return a cool data not found message
         # TODO make this a webpage, not json
@@ -97,6 +90,20 @@ def insert(form):
     note_data = DB_MANAGER.insert(note_id, form['note'], private, ttl_days, max_visits, c)
 
     return note_data
+
+
+def fetch(note_id):
+    # grabs a cursors for db
+    c = get_db().cursor()
+
+    # Fetches first (and only) article in database with provided id
+    row = DB_MANAGER.fetchOne(note_id, c)
+
+    DB_MANAGER.updateVisits((row['visits'] + 1), note_id, c)
+    if row['visits'] + 1 >= row['max_visits']:
+        removeNote(note_id, DATABASE_PATH)
+
+    return row if row else False
 
 
 def get_db():

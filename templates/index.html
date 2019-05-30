@@ -27,7 +27,7 @@
     </form>
 </div>
 <div class="surround">
-    <form id="fetch" name="fetch" action="{{ url_for('fetch', note_id='BLANK') }}"
+    <form id="fetch" name="fetch" action="{{ url_for('clientFetch', note_id='BLANK') }}"
           method="get" onsubmit="return createFetchUrl('fetch');">
         <h1>Fetch Existing Note</h1>
         <p>Retrieve a previously entered note with the associated code</p>
