@@ -8,7 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # This function has to be outside of the DB manager, or the scheduler jobstore
 # won't function correctly
-def removeNote(note_id, db_path):
+def remove_note(note_id, db_path):
     c = sqlite3.connect(db_path).cursor()
     c.execute('DELETE FROM shelf WHERE id = ?', (note_id,))
     c.connection.commit()
@@ -45,7 +45,7 @@ class DBManager:
                   (id, data, private, utc_date, expiry_date, max_visits))
         c.connection.commit()
 
-        self.addTask(id, expiry_date)
+        self.add_task(id, expiry_date)
 
         # Returns the expiry date and id which can be presented to the client
         # Also format expiry date in iso format for API, and for client side JS
@@ -53,11 +53,11 @@ class DBManager:
         return {'id': id, 'expiry_date': expiry_date.isoformat()+'Z',
                 'max_visits': max_visits}
 
-    def fetchOne(self, id: str, c: sqlite3.Cursor):
+    def fetch_one(self, id: str, c: sqlite3.Cursor):
         c.execute('SELECT * FROM shelf WHERE id = ?', (id,))
         return c.fetchone()
 
-    def generateID(self, c: sqlite3.Cursor) -> str:
+    def generate_id(self, c: sqlite3.Cursor) -> str:
         # generates a word id from simple word list
         id = f'{random.choice(self.words)}-{random.choice(self.words)}'
 
@@ -68,18 +68,18 @@ class DBManager:
 
         # if another ID happens to exist, just grab a new one
         if c.fetchone()[0] == 1:
-            return self.generateID(c)
+            return self.generate_id(c)
 
         return id
 
 
 
-    def updateVisits(self, visitCount: int, note_id: str, c: sqlite3.Cursor):
+    def update_visits(self, visitCount: int, note_id: str, c: sqlite3.Cursor):
         # increment visit count
         c.execute('UPDATE shelf SET visits = ? WHERE id = ?', (visitCount, note_id))
         c.connection.commit()
 
-    def addTask(self, note_id, expiry_date):
+    def add_task(self, note_id, expiry_date):
         # adds a task in APScheduler to delete note after its expiry time/date
-        self.scheduler.add_job(removeNote, trigger='date', run_date=expiry_date,
+        self.scheduler.add_job(remove_note, trigger='date', run_date=expiry_date,
                                id=note_id, timezone='UTC', args=(note_id, self.db_path))
