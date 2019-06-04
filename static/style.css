@@ -4,12 +4,16 @@ body {
     text-align: center;
 }
 
-main, .surround{
+main, .surround, footer{
     margin: 0 auto 2em;
     width: 60%;
     background: #FFFFFF;
     padding: 1em;
     border-radius: 50px;
+}
+
+footer {
+    margin-bottom: 0;
 }
 
 .note-container > label {

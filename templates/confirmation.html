@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Note Added!</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Note Added!{% endblock %}
+{% block content %}
 <main>
     <h1>Note Successfully Added!</h1>
     <h2>Code: {{ note_id }}</h2>
@@ -39,5 +34,4 @@
         }
     }
 </script>
-</body>
-</html>
+{% endblock %}

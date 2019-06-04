@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Retrieve Note</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-</head>
+{% extends "base.html" %}
+{% block title %}Retrieve Note{% endblock %}
+{% block content %}
 <body>
 <main>
     <h1>Note {{ note.id }}</h1>
@@ -23,5 +19,4 @@
         document.getElementById('copy').style.display = 'none'
     }
 </script>
-</body>
-</html>
+{% endblock %}

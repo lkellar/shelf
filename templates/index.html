@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create New Note</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Create New Note{% endblock %}
+{% block content %}
 <div class="surround">
     <form action="{{ url_for('clientInsert') }}" method="post">
         <h1>Create New Note</h1>
@@ -68,5 +62,4 @@
         document.body.insertBefore(ele, document.body.firstChild);
     }
 </script>
-</body>
-</html>
+{% endblock %}

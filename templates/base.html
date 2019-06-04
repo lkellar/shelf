@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+{% block content %}
+{% endblock %}
+<footer>
+    The words that make up the codes come from <a href="https://simple.wikipedia.org/wiki/Wikipedia:List_of_1000_basic_words">Simple English Wikipedia</a><br>
+    The source code for this project is available on <a href="https://github.com/katzrkool/shelf">Github</a>. <a href="https://github.com/katzrkool/shelf/blob/master/LICENSE">Project License</a>
+</footer>
+</body>
+</html>
