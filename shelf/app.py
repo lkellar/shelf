@@ -77,7 +77,6 @@ def client_insert():
                            min_ttl_days=MIN_TTL_DAYS)
 
 
-# TODO add api for fetch
 @app.route('/fetch/<note_id>', methods=['GET'])
 def client_fetch(note_id):
     note = fetch(note_id)
@@ -88,7 +87,7 @@ def client_fetch(note_id):
     else:
         # if not, return a cool data not found message
         return redirect(url_for('index', find='failed', _external=True,
-                                _scheme='https'))
+                                _scheme=request.scheme))
 
 
 # API endpoints

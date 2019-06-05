@@ -59,7 +59,7 @@ input[type="number"] {
 }
 
 @media only screen and (max-width: 800px) {
-    main, .surround {
+    main, .surround, nav {
         width: 80%;
     }
 
@@ -70,4 +70,30 @@ input[type="number"] {
     input[type="number"] {
         width: 2em;
     }
+}
+nav {
+    background: #FFFFFF;
+    padding: 1em;
+    border-radius: 50px;
+    width: 60%;
+    margin: 0 auto 2em;
+}
+
+nav ol {
+    list-style-type: none;
+    padding-left: 0;
+    margin: auto;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a::after {
+    display: inline-block;
+    color: #000;
+    content: '>';
+    font-size: 80%;
+    font-weight: bold;
+    padding: 0 3px;
 }

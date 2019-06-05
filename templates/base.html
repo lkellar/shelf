@@ -7,6 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<nav>
+    <ol>
+        {% if url_for('index') != '/' %}
+            <li><a href="/">Home</a></li>
+        {% endif %}
+        {% if '/' != request.path %}
+            <li><a href="{{ url_for('index') }}">Shelf Home</a></li>
+        {% endif %}
+        <li>{{ self.title() }}</li>
+    </ol>
+</nav>
 {% block content %}
 {% endblock %}
 <footer>
