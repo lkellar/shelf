@@ -62,6 +62,8 @@
         document.body.insertBefore(ele, document.body.firstChild);
     }
 
+    // putting this snippet below only here, because it won't apply to any sub pages
+    // this removes the nav bar if the page is the website root
     const navBar = document.getElementsByTagName('nav')[0];
     if (navBar.getElementsByTagName('li').length === 1) {
         navBar.style.display = 'none';

@@ -4,7 +4,9 @@
 <body>
 <main>
     <h1>Note {{ note.id }}</h1>
-    <p id="note_data">{{ note.data }}</p>
+    {# Replacing python newlines into linebreaks and marking the linebreaks as safe
+    with no need for escaping#}
+    <p id="note_data">{{ note.data|replace('\n', '<br>'|safe) }}</p>
     <button id="copy" onclick="copyText()">Copy to Clipboard</button>
 </main>
 <script>

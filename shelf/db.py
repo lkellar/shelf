@@ -81,5 +81,8 @@ class DBManager:
 
     def add_task(self, note_id, expiry_date):
         # adds a task in APScheduler to delete note after its expiry time/date
+        # Sets misfire_grace_time to None, (infinite), so if a deletion job is
+        # missed, it is fired whenever the program is turned back on
         self.scheduler.add_job(remove_note, trigger='date', run_date=expiry_date,
-                               id=note_id, timezone='UTC', args=(note_id, self.db_path))
+                               id=note_id, timezone='UTC',
+                               misfire_grace_time=None, args=(note_id, self.db_path))

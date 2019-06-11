@@ -109,7 +109,7 @@ def api_fetch(note_id):
     note = fetch(note_id)
 
     if note:
-        return jsonify(dict(note))
+        return jsonify(note)
     else:
         # If no note, return an empty dictionary,
         # this way, there's no custom error message, and if the empty response
@@ -154,6 +154,10 @@ def fetch(note_id):
     row = DB_MANAGER.fetch_one(note_id, c)
 
     if row:
+        # For some reason, python is displaying line returns as \r\n
+        row = dict(row)
+        row['data'] = row['data'].replace('\r\n', '\n')
+
         DB_MANAGER.update_visits((row['visits'] + 1), note_id, c)
         if row['visits'] + 1 >= row['max_visits']:
             remove_note(note_id, DATABASE_PATH)
@@ -165,8 +169,9 @@ def fetch(note_id):
 def get_db():
     db = getattr(g, '_database', None)
     if not db:
-        db = g._database = sqlite3.connect(DATABASE_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
-        g._database.row_factory = sqlite3.Row
+        db = sqlite3.connect(DATABASE_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
+        db.row_factory = sqlite3.Row
+        g._database = db
 
     return db
 
