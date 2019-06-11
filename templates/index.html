@@ -33,7 +33,7 @@
         // Fetching the value of the code input
         const form = document.forms[formName];
         const note_id_input = form.querySelector('input[name="note_id"]');
-        const note_id = note_id_input.value.replace(' ', '-');
+        const note_id = note_id_input.value.replace(' ', '-').toLowerCase();
 
         // Changing the form action to go to the note corresponding to the code
         let url = form.action.split('/').slice(0, -1);
