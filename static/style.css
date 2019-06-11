@@ -59,7 +59,7 @@ input[type="number"] {
 }
 
 @media only screen and (max-width: 800px) {
-    main, .surround, nav {
+    main, .surround, nav, footer {
         width: 80%;
     }
 
