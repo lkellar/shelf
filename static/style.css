@@ -41,7 +41,7 @@ button {
     padding: 3% 8%;
     font-size: x-large;
     border-radius: 50px;
-    background-color: rgb(237, 237, 237);
+    background-color: #ededed;
 }
 
 #controls {
@@ -96,4 +96,26 @@ nav a::after {
     font-size: 80%;
     font-weight: bold;
     padding: 0 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #515151;
+    }
+
+    main, .surround, nav, footer {
+        background-color: #d3d3d3;
+    }
+
+     textarea, input {
+         background-color: #ededed;
+     }
+}
+
+#note_data {
+    overflow-wrap: break-word;
+}
+
+input[name="note_id"] {
+    min-height: 1.5em;
 }
