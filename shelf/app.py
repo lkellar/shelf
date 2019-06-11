@@ -125,10 +125,6 @@ def insert(form):
     # generates a unique ID from a word list
     note_id = DB_MANAGER.generate_id(c)
 
-    # if the text snippet is public or not
-    private = True if form['private'] == 'true' or form['private'] == 'on'\
-        else False
-
     # How many days the note will remain before expiration
     ttl_days = int(form['ttl_days']) if 'ttl_days' in form else 1
 
@@ -141,7 +137,7 @@ def insert(form):
 
     # Insert the note into the DB_Manager's insert function, which inserts
     # into db then, returns the expiry date and note id.
-    note_data = DB_MANAGER.insert(note_id, form['note'], private, ttl_days, max_visits, c)
+    note_data = DB_MANAGER.insert(note_id, form['note'], ttl_days, max_visits, c)
 
     return note_data
 

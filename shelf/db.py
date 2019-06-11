@@ -23,7 +23,7 @@ class DBManager:
             # it doesn't exist
             c = conn.cursor()
             c.execute('''CREATE TABLE IF NOT EXISTS shelf 
-            (id text PRIMARY KEY UNIQUE, data text, private BOOLEAN, visits INTEGER DEFAULT 0, max_visits INTEGER DEFAULT 1, insert_date TIMESTAMP, expiry_date TIMESTAMP)''')
+            (id text PRIMARY KEY UNIQUE, data text, visits INTEGER DEFAULT 0, max_visits INTEGER DEFAULT 1, insert_date TIMESTAMP, expiry_date TIMESTAMP)''')
 
         with open(word_path, 'r') as f:
             self.words = json.load(f)
@@ -34,15 +34,15 @@ class DBManager:
         self.scheduler.start()
         self.db_path = db_path
 
-    def insert(self, id: str, data: str, private: bool, ttl_days: int, max_visits: int, c: sqlite3.Cursor):
+    def insert(self, id: str, data: str, ttl_days: int, max_visits: int, c: sqlite3.Cursor):
         # gets the current time (in utc)
         utc_date = datetime.utcnow()
 
         # calculates the day the note should expire
         expiry_date = utc_date + timedelta(days=ttl_days)
 
-        c.execute('INSERT INTO shelf (id, data, private, insert_date, expiry_date, max_visits) VALUES (?, ?, ?, ?, ?, ?)',
-                  (id, data, private, utc_date, expiry_date, max_visits))
+        c.execute('INSERT INTO shelf (id, data, insert_date, expiry_date, max_visits) VALUES (?, ?, ?, ?, ?)',
+                  (id, data, utc_date, expiry_date, max_visits))
         c.connection.commit()
 
         self.add_task(id, expiry_date)
