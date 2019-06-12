@@ -1,5 +1,5 @@
 # Shelf
-A place to temporary share and store text without creating digital clutter.
+A place to temporarily share and store text without creating digital clutter.
 
 ## About
 Have you ever needed to share a snippet of text like a URL, code snippet, or any other bit of text to a different computer?
