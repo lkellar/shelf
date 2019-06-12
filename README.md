@@ -6,7 +6,7 @@ Have you ever needed to share a snippet of text like a URL, code snippet, or any
 
 Typically, one of the easiest ways to do that is to just email it to yourself, which creates a cluttered inbox.
 
-This project aims to solve that problem. Input a text snippet of any length, and you'll get back a two word phrase (like cat-dog, or excellent-useful). Then, go to the Shelf on a different computer, enter that phrase, and the text will be available. And, with just a click of a button, that text can be copied to your clipboard.
+This project aims to solve that problem. Input a text snippet of any length, and you'll get back a two word phrase (like `cat-dog`, or `excellent-useful`). Then, go to the Shelf on a different computer, enter that phrase, and the text will be available. And, with just a click of a button, that text can be copied to your clipboard.
 
 Additionally, all snippets uploaded to the server are temporary, and either expire after a certain amount of time (Default: 24 hours) or after the note has been accessed a certain amount of times (Default: 2 times). This allows for easy text transfer, without leaving behind crumbs to clean up later.
 
@@ -14,9 +14,9 @@ Additionally, all snippets uploaded to the server are temporary, and either expi
 
 To install, clone the project, and install the requirements.
 
-You can easily install with pipenv: `pipenv install`
-
 This project uses Python 3.6
+
+You can easily install with pipenv: `pipenv install`
 
 Then, just run Flask
 ```
