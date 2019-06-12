@@ -11,6 +11,7 @@
     <button class="copy" onclick="copyText(true)">Copy URL to Clipboard</button>
     <button class="copy" onclick="copyText(false)">Copy Code to Clipboard</button>
 </main>
+<script src="{{ url_for('static', filename='clipboard-polyfill.js') }}"></script>
 <script>
     async function copyText(url) {
         // if url is true, copy the url, if not, copy the code
@@ -20,18 +21,16 @@
         } else {
             txt = document.getElementById('note_id').dataset.code;
         }
-        await navigator.clipboard.writeText(txt);
+
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(txt);
+        } else {
+            // Uses a polyfill from the clipboard-polyfill.js file
+            clipboard.writeText(txt);
+        }
     }
     const expiry_ele = document.getElementById('expiry');
     const post_date = new Date(expiry_ele.dataset['expiry']);
     expiry_ele.innerText = post_date.toString();
-
-    if (location.protocol !== 'https:' && location.hostname !== "localhost"
-        && location.hostname !== "127.0.0.1" && location.hostname !== "0.0.0.0"
-        && !location.hostname.startsWith('192.168')) {
-        for (const i of document.getElementsByClassName('copy')) {
-            i.style.display = 'none'
-        }
-    }
 </script>
 {% endblock %}

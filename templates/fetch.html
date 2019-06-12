@@ -9,16 +9,17 @@
     <p id="note_data">{{ note.data|replace('\n', '<br>'|safe) }}</p>
     <button id="copy" onclick="copyText()">Copy to Clipboard</button>
 </main>
+<script src="{{ url_for('static', filename='clipboard-polyfill.js') }}"></script>
 <script>
     async function copyText() {
         const txt = document.getElementById('note_data').innerText;
-        await navigator.clipboard.writeText(txt);
-    }
 
-    if (location.protocol !== 'https:' && location.hostname !== "localhost"
-        && location.hostname !== "127.0.0.1" && location.hostname !== "0.0.0.0"
-        && !location.hostname.startsWith('192.168')) {
-        document.getElementById('copy').style.display = 'none'
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(txt);
+        } else {
+            // Uses a polyfill from the clipboard-polyfill.js file
+            clipboard.writeText(txt);
+        }
     }
 </script>
 {% endblock %}
