@@ -58,7 +58,7 @@ The server will send back the code to access the note, the max_visits, and the e
 }
 ```
 
-#### `/api/fetch/<note_id>` (POST)
+#### `/api/fetch/<note_id>` (GET)
 Fetch a note from the database
 ##### Parameters
 * `<note_id>` (Required) (string): The code to access the note with. 
