@@ -58,19 +58,6 @@ input[type="number"] {
     width: 5em;
 }
 
-@media only screen and (max-width: 800px) {
-    main, .surround, nav, footer {
-        width: 80%;
-    }
-
-    #controls {
-        flex-flow: column;
-    }
-
-    input[type="number"] {
-        width: 2em;
-    }
-}
 nav {
     background: #FFFFFF;
     padding: 1em;
@@ -118,4 +105,22 @@ nav a::after {
 
 input[name="note_id"] {
     min-height: 1.5em;
+}
+
+@media only screen and (max-width: 800px) {
+    main, .surround, nav, footer {
+        width: 80%;
+    }
+
+    #controls {
+        flex-flow: column;
+    }
+
+    input[type="number"] {
+        width: 2em;
+    }
+
+    button {
+        margin: 3% auto;
+    }
 }
