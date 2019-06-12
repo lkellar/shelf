@@ -36,7 +36,7 @@ To insert a note, just input text into the textarea, adjust the settings if need
 
 To retrieve, just navigate to the home page, enter the code, and the note should appear!
 
-You'll have the option to copy the data to clipboard if your browser supports the [`navigator.clipboard.writeText` feature](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText#Browser_compatibility)
+You'll also have the option to copy the data to your clipboard. If your browser supports the [`navigator.clipboard.writeText` feature](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText#Browser_compatibility), then it'll use that. If not, it will use the included [clipboard-polyfill](https://github.com/lgarron/clipboard-polyfill)
 
 ## API Endpoints
 
@@ -66,7 +66,7 @@ Fetch a note from the database
 The note_id param goes into the URL, like the following example: `/api/fetch/give-student`
 
 ##### Response
-If the note exists, the server will respond with everything it 
+If the note exists, the server will respond with all the data it has
 ```json
 {
   "data": "test123",
