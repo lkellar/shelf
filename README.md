@@ -14,7 +14,7 @@ Additionally, all snippets uploaded to the server are temporary, and either expi
 
 To install, clone the project, and install the requirements.
 
-This project uses Python 3.6
+This project uses Python 3.7
 
 You can easily install with pipenv: `pipenv install`
 
