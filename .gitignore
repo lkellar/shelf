@@ -277,3 +277,4 @@ Temporary Items
 .apdisk
 
 *.sqlite3
+*.wsgi
