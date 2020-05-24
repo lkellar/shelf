@@ -5,6 +5,7 @@ import random
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
+MAX_DAYS = 365
 
 # This function has to be outside of the DB manager, or the scheduler jobstore
 # won't function correctly
@@ -39,6 +40,7 @@ class DBManager:
         utc_date = datetime.utcnow()
 
         # calculates the day the note should expire
+        ttl_days = ttl_days if ttl_days < MAX_DAYS else MAX_DAYS
         expiry_date = utc_date + timedelta(days=ttl_days)
 
         c.execute('INSERT INTO shelf (id, data, insert_date, expiry_date, max_visits) VALUES (?, ?, ?, ?, ?)',

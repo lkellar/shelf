@@ -72,9 +72,7 @@ def client_insert():
     # Returns confirmation page with details on how to retrieve note
     return render_template('confirmation.html', note_id=note_data['id'],
                            expiry_date=note_data['expiry_date'],
-                           max_visits=note_data['max_visits'],
-                           min_max_visits=MIN_MAX_VISITS,
-                           min_ttl_days=MIN_TTL_DAYS)
+                           max_visits=note_data['max_visits'])
 
 
 @app.route('/fetch/<note_id>', methods=['GET'])
